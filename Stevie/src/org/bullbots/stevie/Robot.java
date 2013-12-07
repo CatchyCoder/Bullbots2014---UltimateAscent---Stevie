@@ -73,7 +73,7 @@ public class Robot extends IterativeRobot {
 	// Only driving with the joystick in use
 	driveTrain.driveUsingVoltage(enabledJoystick.getYAxis(), enabledJoystick.getXAxis());
 	
-	checkJoysticks();
+	checkJoystickActivation();
     }
     
     /**
@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
     private void dualJoystick() {
 	driveTrain.driveUsingVoltage(leftJoystick.getYAxis(), rightJoystick.getYAxis());	    // MAY HAVE TO FLIP TO NEGATIVE VALUE
 	
-	checkJoysticks();
+	checkJoystickActivation();
     }
     
     /**
@@ -92,7 +92,7 @@ public class Robot extends IterativeRobot {
 	UserDebug.print("---> WARNING <---: Entered testPeriodic().");
     }
     
-    private void checkJoysticks(){
+    private void checkJoystickActivation(){
 	if(leftJoystick.isButtonDown(10)) leftJoystick.setEnabled(!leftJoystick.isEnabled());
 	if(rightJoystick.isButtonDown(10)) rightJoystick.setEnabled(!rightJoystick.isEnabled());
     }
