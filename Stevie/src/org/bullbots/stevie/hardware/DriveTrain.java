@@ -16,9 +16,9 @@ public class DriveTrain {
     public DriveTrain(double p, double i, double d) {
 	TEST_JAG = new Jaguar(6, p, i, d);		    // Configure what jag to use
 	
-	/*LEFT_DUAL_JAG = new DualJaguar(1, 1, p, i, d);	    // CONFIGURE ALL BOARD-ID's
-	RIGHT_DUAL_JAG = new DualJaguar(1, 1, p, i, d);
-	WINCH_DUAL_JAG = new DualJaguar(1, 1, p, i, d);*/
+	//LEFT_DUAL_JAG = new DualJaguar(6, 1, p, i, d);	    // CONFIGURE ALL BOARD-ID's
+	//RIGHT_DUAL_JAG = new DualJaguar(8, 1, p, i, d);
+	//WINCH_DUAL_JAG = new DualJaguar(1, 1, p, i, d);
 	LEFT_DUAL_JAG = null;
 	RIGHT_DUAL_JAG = null;
 	WINCH_DUAL_JAG = null;

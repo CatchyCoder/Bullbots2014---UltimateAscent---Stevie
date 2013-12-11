@@ -93,7 +93,7 @@ public class Robot extends IterativeRobot {
     }
     
     private void checkJoystickActivation(){
-        final int TOGGLE_BUTTON = 10;
+        final int TOGGLE_BUTTON = 3;
 	if(leftJoystick.isButtonDown(TOGGLE_BUTTON)) leftJoystick.setEnabled(!leftJoystick.isEnabled());
 	if(rightJoystick.isButtonDown(TOGGLE_BUTTON)) rightJoystick.setEnabled(!rightJoystick.isEnabled());
     }
