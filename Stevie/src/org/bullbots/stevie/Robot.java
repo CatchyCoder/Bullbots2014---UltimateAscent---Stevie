@@ -21,11 +21,10 @@ import org.bullbots.util.UserDebug;
  */
 public class Robot extends IterativeRobot {
     
-    private static JoystickController leftJoystick;
-    private static JoystickController rightJoystick;
+    private static JoystickController joystick1, joystick2;
     private DriveTrain driveTrain;
     
-    private final double P = 0.0; // HELLOxyz
+    private final double P = 0.0;
     private final double I = 0.0;
     private final double D = 0.0;
     
@@ -34,14 +33,17 @@ public class Robot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-	UserDebug.print("Entered robotInit().\n--\n--\n--");
-	leftJoystick = new JoystickController(1);
-	rightJoystick = new JoystickController(2);			    // CORRECT NUMBER???
-        	
-	rightJoystick.setEnabled(false); // Set to one joystick by default
-	
+	UserDebug.print("\nooo\nooo\nooo\nEntered robotInit().");
+        
+        /* NOTE: If only one joystick is connected, then the last instantiated JoystickController
+         * class is the object that will have control of the joystick. (Therefore NEVER disable
+         * joystick2 with only one joystick connected)
+         */
+	joystick1 = new JoystickController(0, false);
+	joystick2 = new JoystickController(1, true);
+        
 	driveTrain = new DriveTrain(P, I, D);
-	UserDebug.print("Finished robotInit().\n--\n--\n--");
+	UserDebug.print("Finished robotInit().\nooo\nooo\nooo");
     }
     
     /**
@@ -54,20 +56,26 @@ public class Robot extends IterativeRobot {
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
-	driveTrain.driveTestJag(1.0);
-	
+    public void teleopPeriodic() {	
 	// FOR FULLY DRIVING ROBOT ONLY
-	//if(isDualJoystickMode()) dualJoystick();
-	//else singleJoystick(); //agem
+	if(isDualJoystickMode()) dualJoystick();
+	else singleJoystick();
 	
 	// No other code should be here, code should be distributed to single/doubleJoystick methods
+    }
+    
+    /**
+     * This function is called periodically during test mode
+     */
+    public void testPeriodic() {
+	UserDebug.print("---> WARNING <---: Entered testPeriodic().");
     }
     
     /**
      * Drives using a single joystick
      */
     private void singleJoystick() {
+        // Finding out what joystick is enabled
 	JoystickController enabledJoystick = getEnabledJoystick();
 	
 	// Only driving with the joystick in use
@@ -80,30 +88,28 @@ public class Robot extends IterativeRobot {
      * Drives using two joysticks
      */
     private void dualJoystick() {
-	driveTrain.driveUsingVoltage(leftJoystick.getYAxis(), rightJoystick.getYAxis());	    // MAY HAVE TO FLIP TO NEGATIVE VALUE
+	driveTrain.driveUsingVoltage(joystick1.getYAxis(), joystick2.getYAxis());	    // MAY HAVE TO FLIP TO NEGATIVE VALUE
 	
 	checkJoystickActivation();
     }
     
-    /**
-     * This function is called periodically during test mode
-     */
-    public void testPeriodic() {
-	UserDebug.print("---> WARNING <---: Entered testPeriodic().");
-    }
-    
     private void checkJoystickActivation(){
-        final int TOGGLE_BUTTON = 3;
-	if(leftJoystick.isButtonDown(TOGGLE_BUTTON)) leftJoystick.setEnabled(!leftJoystick.isEnabled());
-	if(rightJoystick.isButtonDown(TOGGLE_BUTTON)) rightJoystick.setEnabled(!rightJoystick.isEnabled());
+        final int ENABLE_BUTTON = 4;
+        final int DISABLE_BUTTON = 10;
+        
+	if(joystick1.isButtonDown(ENABLE_BUTTON)) joystick1.setEnabled(true);
+        else if(joystick1.isButtonDown(DISABLE_BUTTON)) joystick1.setEnabled(false);
+        
+        if(joystick2.isButtonDown(ENABLE_BUTTON)) joystick2.setEnabled(true);
+        else if(joystick2.isButtonDown(DISABLE_BUTTON))joystick2.setEnabled(false);
     }
     
     public static boolean isDualJoystickMode() {
-	return (leftJoystick.isEnabled() && rightJoystick.isEnabled());
+	return (joystick1.isEnabled() && joystick2.isEnabled());
     }
     
     public JoystickController getEnabledJoystick() {
-	if(leftJoystick.isEnabled()) return leftJoystick;
-	return rightJoystick;
+	if(joystick1.isEnabled()) return joystick1;
+	return joystick2;
     }
 }

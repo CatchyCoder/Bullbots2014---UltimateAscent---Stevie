@@ -7,34 +7,49 @@ import org.bullbots.stevie.Robot;
  */
 public class DriveTrain {
     
-    private final Jaguar TEST_JAG;
+    // For test jags only
+    private final Jaguar TEST_JAG, TEST_JAG2, TEST_JAG3, TEST_JAG4;
     
     private final DualJaguar LEFT_DUAL_JAG;
     private final DualJaguar RIGHT_DUAL_JAG;
     private final DualJaguar WINCH_DUAL_JAG;
     
     public DriveTrain(double p, double i, double d) {
-	TEST_JAG = new Jaguar(6, p, i, d);		    // Configure what jag to use
-	
-	//LEFT_DUAL_JAG = new DualJaguar(6, 1, p, i, d);	    // CONFIGURE ALL BOARD-ID's
-	//RIGHT_DUAL_JAG = new DualJaguar(8, 1, p, i, d);
-	//WINCH_DUAL_JAG = new DualJaguar(1, 1, p, i, d);
-	LEFT_DUAL_JAG = null;
-	RIGHT_DUAL_JAG = null;
+        LEFT_DUAL_JAG = new DualJaguar(6, 1, p, i, d);
+	RIGHT_DUAL_JAG = new DualJaguar(4, 3, p, i, d);
 	WINCH_DUAL_JAG = null;
+        
+        // For testing jags only
+	TEST_JAG = new Jaguar(1, p, i, d);
+        TEST_JAG2 = new Jaguar(4, p, i, d);
+        TEST_JAG3 = new Jaguar(6, p, i, d);
+        TEST_JAG4 = new Jaguar(3, p, i, d);
     }
     
     public void driveTestJag(double voltage) {
-	TEST_JAG.driveUsingVoltage(voltage);
+        // For testing jags only
+	try{
+            TEST_JAG.driveUsingVoltage(voltage);
+            Thread.sleep(2000);
+            TEST_JAG2.driveUsingVoltage(voltage);
+            Thread.sleep(2000);
+            TEST_JAG3.driveUsingVoltage(voltage);
+            Thread.sleep(2000);
+            TEST_JAG4.driveUsingVoltage(voltage);
+            Thread.sleep(2000);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
     public void driveUsingVoltage(double forwardVoltage, double turnVoltage) {
 	if(!Robot.isDualJoystickMode()) {
 	    double leftVoltage = -(forwardVoltage - turnVoltage);
 	    double rightVoltage = (forwardVoltage + turnVoltage);
-	    
+            
 	    LEFT_DUAL_JAG.driveUsingVoltage(leftVoltage);
-	    RIGHT_DUAL_JAG.driveUsingVoltage(rightVoltage);	    
+	    RIGHT_DUAL_JAG.driveUsingVoltage(rightVoltage);
 	}
 	else { // Using two joysticks
 	    double leftVoltage = forwardVoltage;

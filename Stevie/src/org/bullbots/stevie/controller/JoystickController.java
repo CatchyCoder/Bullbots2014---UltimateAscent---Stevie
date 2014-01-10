@@ -9,12 +9,13 @@ public class JoystickController {
     
     private final Joystick JOYSTICK;
     
-    private boolean enabled = true;
+    private boolean enabled;
     
     private final double DEADBAND = 0.05;
     
-    public JoystickController(int port) {
+    public JoystickController(int port, boolean isEnabled) {
 	JOYSTICK = new Joystick(port);
+        enabled = isEnabled;
     }
     
     public double getXAxis(){
