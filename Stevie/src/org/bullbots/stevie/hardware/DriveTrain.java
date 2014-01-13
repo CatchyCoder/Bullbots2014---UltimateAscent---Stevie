@@ -20,14 +20,15 @@ public class DriveTrain {
 	WINCH_DUAL_JAG = null;
         
         // For testing jags only
-	TEST_JAG = new Jaguar(1, p, i, d);
+	TEST_JAG = new Jaguar(3, p, i, d);
         TEST_JAG2 = new Jaguar(4, p, i, d);
         TEST_JAG3 = new Jaguar(6, p, i, d);
         TEST_JAG4 = new Jaguar(3, p, i, d);
     }
     
     public void driveTestJag(double voltage) {
-        // For testing jags only
+        TEST_JAG.driveUsingVoltage(voltage);
+        /*// For testing jags only
 	try{
             TEST_JAG.driveUsingVoltage(voltage);
             Thread.sleep(2000);
@@ -40,7 +41,7 @@ public class DriveTrain {
         }
         catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
     
     public void driveUsingVoltage(double forwardVoltage, double turnVoltage) {

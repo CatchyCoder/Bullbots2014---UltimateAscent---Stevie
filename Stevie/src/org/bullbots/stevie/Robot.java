@@ -10,6 +10,7 @@ package org.bullbots.stevie;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import org.bullbots.stevie.controller.JoystickController;
 import org.bullbots.stevie.hardware.DriveTrain;
+import org.bullbots.stevie.hardware.Shooter;
 import org.bullbots.util.UserDebug;
 
 /**
@@ -21,12 +22,14 @@ import org.bullbots.util.UserDebug;
  */
 public class Robot extends IterativeRobot {
     
-    private static JoystickController joystick1, joystick2;
-    private DriveTrain driveTrain;
-    
     private final double P = 0.0;
     private final double I = 0.0;
     private final double D = 0.0;
+    
+    private static JoystickController joystick1, joystick2;
+    
+    private DriveTrain driveTrain;
+    private Shooter shooter;
     
     /**
      * This function is run when the robot is first started up and should be
@@ -39,11 +42,13 @@ public class Robot extends IterativeRobot {
          * class is the object that will have control of the joystick. (Therefore NEVER disable
          * joystick2 with only one joystick connected)
          */
-	joystick1 = new JoystickController(0, false);
-	joystick2 = new JoystickController(1, true);
+        joystick1 = new JoystickController(1, false);
+        joystick2 = new JoystickController(2, true);
         
-	driveTrain = new DriveTrain(P, I, D);
-	UserDebug.print("Finished robotInit().\nooo\nooo\nooo");
+        driveTrain = new DriveTrain(P, I, D);
+        shooter = new Shooter();
+        
+        UserDebug.print("Exited robotInit().\nooo\nooo\nooo");
     }
     
     /**
@@ -57,10 +62,9 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {	
-	// FOR FULLY DRIVING ROBOT ONLY
 	if(isDualJoystickMode()) dualJoystick();
 	else singleJoystick();
-	
+        
 	// No other code should be here, code should be distributed to single/doubleJoystick methods
     }
     
@@ -79,7 +83,10 @@ public class Robot extends IterativeRobot {
 	JoystickController enabledJoystick = getEnabledJoystick();
 	
 	// Only driving with the joystick in use
-	driveTrain.driveUsingVoltage(enabledJoystick.getYAxis(), enabledJoystick.getXAxis());
+	//driveTrain.driveUsingVoltage(enabledJoystick.getYAxis(), enabledJoystick.getXAxis());
+        driveTrain.driveTestJag(1.0);
+        
+        shooter.updateSingleJoystick(enabledJoystick);
 	
 	checkJoystickActivation();
     }
@@ -95,7 +102,7 @@ public class Robot extends IterativeRobot {
     
     private void checkJoystickActivation(){
         final int ENABLE_BUTTON = 4;
-        final int DISABLE_BUTTON = 10;
+        final int DISABLE_BUTTON = 7;
         
 	if(joystick1.isButtonDown(ENABLE_BUTTON)) joystick1.setEnabled(true);
         else if(joystick1.isButtonDown(DISABLE_BUTTON)) joystick1.setEnabled(false);
