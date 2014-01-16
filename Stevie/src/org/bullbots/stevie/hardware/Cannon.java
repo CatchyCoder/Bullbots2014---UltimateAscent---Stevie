@@ -10,10 +10,10 @@ import org.bullbots.util.UserDebug;
 public class Cannon {
     
     // Shooting motors
-    private Victor motor1, motor2;
+    private final Victor motor1, motor2;
     
     // Servo shooting switches
-    private Servo leftServo, rightServo;
+    private final Servo leftServo, rightServo;
     
     private final double TOP_SPEED = 1.0;
     private final int TOLERANCE = 3;
@@ -38,7 +38,7 @@ public class Cannon {
         }
         else {
             motor1.set(0);
-            motor2.set(0.1); // The jag is offset so i need to offset the value
+            motor2.set(0.1); // The jag is offset so i need to offset the value (competition robot)
         }
     }
     

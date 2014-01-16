@@ -15,7 +15,7 @@ public class Shooter {
     
     private boolean autoMode = true;
     
-    public void update() {
+    public void update(JoystickController joystick) {
         // If there are no frisbees in the hopper
         if(hopper.isEmpty()) {
             hopper.enableMotor(false);
@@ -24,8 +24,13 @@ public class Shooter {
         else {
             cannon.enableMotors(true);
             // If hopper is COMPLETELY full
-            //if(hopper.isFull()) hopper.enableMotor(false);
-            //else if(hopper.topSlotFull()) hopper.turnMotor(2000);
+            if(hopper.isFull()) hopper.enableMotor(false);
+            else if(hopper.topSlotFull()) hopper.enableMotor(2000);
+            else {
+                hopper.enableMotor(false);
+                // Only shoot if the servos are ready and there is a frisbee in the chamber
+                if(joystick.isButtonDown(1) && cannon.servosReady()) cannon.enableServos(true);
+            }
         }
         
         
