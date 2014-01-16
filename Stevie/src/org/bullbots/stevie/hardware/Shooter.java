@@ -16,39 +16,16 @@ public class Shooter {
     private boolean autoMode = true;
     
     public void update() {
-        System.out.println("\nShooter.fire");
-        // If the first slot is loaded, fire
-        if(hopper.bottomSlotFull()) {
-            UserDebug.print("slot 2 full");
-            ///cannon.fire();
-        }
-	else {
-            UserDebug.print("slot 2 empty");
-            //cannon.setServoPositions(180.0);
-	    // If there is a frisbee in slot 1 and the servos are ready, move it into slot 2
-            if(hopper.topSlotFull() && cannon.servosReady()) {
-                hopper.enableMotor(true);
-                UserDebug.print("slot 1 full");
-            }
-            // If no frisbees are left, stop the wheels
-	    else {
-                UserDebug.print("slot 1 empty");
-                hopper.enableMotor(false);
-            }
-        }
-        
-	// If all slots are empty, stop the wheels
-        if(!hopper.topSlotFull() && !hopper.bottomSlotFull() && cannon.servosReady()) cannon.enableMotors(false);
-    }
-    
-    public void updateSingleJoystick(JoystickController joystick) {
         // If there are no frisbees in the hopper
         if(hopper.isEmpty()) {
             hopper.enableMotor(false);
             cannon.enableMotors(false);
         }
         else {
-            
+            cannon.enableMotors(true);
+            // If hopper is COMPLETELY full
+            //if(hopper.isFull()) hopper.enableMotor(false);
+            //else if(hopper.topSlotFull()) hopper.turnMotor(2000);
         }
         
         
