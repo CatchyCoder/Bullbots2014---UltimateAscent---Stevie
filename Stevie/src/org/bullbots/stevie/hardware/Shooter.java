@@ -43,12 +43,10 @@ public class Shooter {
     
     public void updateSingleJoystick(JoystickController joystick) {
         // If there are no frisbees in the hopper
-        if(hopper.isEmpty()) {
-            hopper.enableMotor(false);
-            cannon.enableMotors(false);
-        }
-        else {
-            
+        if(hopper.topSlotFull() ) {
+            cannon.enableMotors(true);
+            if(hopper.bottomSlotFull()) hopper.enableMotor(false);
+            else
         }
         
         
