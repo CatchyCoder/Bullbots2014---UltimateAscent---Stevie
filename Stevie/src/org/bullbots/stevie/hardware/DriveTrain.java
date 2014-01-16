@@ -20,10 +20,11 @@ public class DriveTrain {
 	WINCH_DUAL_JAG = null;
         
         // For testing jags only
-	TEST_JAG = new Jaguar(3, p, i, d);
+	/*TEST_JAG = new Jaguar(3, p, i, d);
         TEST_JAG2 = new Jaguar(4, p, i, d);
         TEST_JAG3 = new Jaguar(6, p, i, d);
-        TEST_JAG4 = new Jaguar(3, p, i, d);
+        TEST_JAG4 = new Jaguar(3, p, i, d);*/
+        TEST_JAG = TEST_JAG2 = TEST_JAG3 = TEST_JAG4 = null;
     }
     
     public void driveTestJag(double voltage) {

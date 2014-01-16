@@ -83,8 +83,8 @@ public class Robot extends IterativeRobot {
 	JoystickController enabledJoystick = getEnabledJoystick();
 	
 	// Only driving with the joystick in use
-	//driveTrain.driveUsingVoltage(enabledJoystick.getYAxis(), enabledJoystick.getXAxis());
-        driveTrain.driveTestJag(1.0);
+	driveTrain.driveUsingVoltage(enabledJoystick.getYAxis(), enabledJoystick.getXAxis());
+        //driveTrain.driveTestJag(1.0);
         
         shooter.updateSingleJoystick(enabledJoystick);
 	

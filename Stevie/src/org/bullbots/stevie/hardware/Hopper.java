@@ -41,6 +41,10 @@ public class Hopper {
     }
     
     public boolean isEmpty() {
-        return !(topSlotFull() && bottomSlotFull());
+        return (!topSlotFull() && !bottomSlotFull());
+    }
+    
+    public boolean isFull() {
+        return (topSlotFull() && bottomSlotFull());
     }
 }
