@@ -1,4 +1,4 @@
-package org.bullbots.stevie.hardware;
+ package org.bullbots.stevie.hardware;
 
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.can.CANTimeoutException;

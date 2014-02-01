@@ -15,7 +15,7 @@ public class Cannon {
     // Servo shooting switches
     private final Servo leftServo, rightServo;
     
-    private final double TOP_SPEED = 1.0;
+    private final double TOP_SPEED = 1.00;
     private final int TOLERANCE = 3;
     
     public Cannon() {

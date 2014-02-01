@@ -17,7 +17,7 @@ public class Shooter {
     
     public void update(JoystickController joystick) {
         // If there are no frisbees in the hopper
-        if(hopper.isEmpty()) {
+        /*if(hopper.isEmpty()) {
             hopper.enableMotor(false);
             cannon.enableMotors(false);
         }
@@ -27,47 +27,26 @@ public class Shooter {
             if(hopper.isFull()) hopper.enableMotor(false);
             else if(hopper.topSlotFull()) hopper.enableMotor(2000);
             else {
-                hopper.enableMotor(false);
-                // Only shoot if the servos are ready and there is a frisbee in the chamber
-                if(joystick.isButtonDown(1) && cannon.servosReady()) cannon.enableServos(true);
+                if(cannon.servosReady()) hopper.enableMotor(false);
+                // Only shoot if the and there is a frisbee in the chamber
+                if(joystick.isButtonDown(1)) cannon.enableServos(true);
+                else cannon.enableServos(false);
             }
-        }
-        
-        
-        
-        
-        
-        // FIRST ATTEMPT
-        /*if(joystick.isButtonDown(8)) autoMode = true;
-        else if(joystick.isButtonDown(9)) autoMode = false;
-        
-        // User wants to spin wheel manually
-        if(!autoMode) {
-            if(joystick.isButtonDown(10)) cannon.enableMotors(true);
-            else if(joystick.isButtonDown(11)) cannon.enableMotors(false);
-        }
-        
-        if(hopper.slot2Full()) {
-            hopper.enableMotor(false);
-            if(autoMode) cannon.enableMotors(true);
             
-            if(joystick.isButtonDown(2)) cannon.enableServos(true);
-        }
-        else {
-            if(autoMode) cannon.enableMotors(hopper.slot1Full());
-            cannon.enableServos(false);
-            
-           hopper.enableMotor(hopper.slot1Full());
         }*/
         
-        
-        // OLD
-        /*if(hopper.slot2Full()) cannon.enableServos(true);
-        else{
-            cannon.enableServos(false);
-            if(hopper.slot1Full() && cannon.servosReady()) hopper.enableMotor(true);
-            else hopper.enableMotor(false);
+        //cannon.enableMotors(true);
+        if(hopper.bottomSlotFull()){
+            hopper.enableMotor(false);
         }
-        if(!(hopper.slot1Full() && hopper.slot2Full()) && cannon.servosReady()) cannon.enableMotors(false);*/
+        else if(hopper.topSlotFull()) hopper.enableMotor(true);
+        else {
+            //cannon.enableMotors(false);
+        }
+        if(joystick.isButtonDown(1)) cannon.enableServos(true);
+        else cannon.enableServos(false);
+        
+        if(joystick.isButtonDown(10)) cannon.enableMotors(true);
+        else if(joystick.isButtonDown(11)) cannon.enableMotors(false);
     }
 }

@@ -38,6 +38,7 @@ public class Hopper implements Runnable {
     
     public void enableMotor(int milliseconds) {
         runTime = milliseconds;
+        enableMotor(true);
         new Thread(this).start();
     }
     
@@ -59,7 +60,6 @@ public class Hopper implements Runnable {
     
     public void run() {
         try {
-            enableMotor(true);
             Thread.sleep(runTime);
             enableMotor(false);
         }

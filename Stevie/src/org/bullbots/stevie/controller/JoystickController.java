@@ -13,13 +13,13 @@ public class JoystickController {
     
     private final double DEADBAND = 0.05;
     
-    public JoystickController(int port, boolean isEnabled) {
+    public JoystickController(int port, boolean enabled) {
 	JOYSTICK = new Joystick(port);
-        enabled = isEnabled;
+        this.enabled = enabled;
     }
     
     public double getXAxis(){
-	if(!enabled) return 0;
+	if(!enabled) return 0.0;
 	
 	double value = JOYSTICK.getRawAxis(1);
 	if(Math.abs(value) > DEADBAND) return value;
@@ -27,7 +27,7 @@ public class JoystickController {
     }
     
     public double getYAxis(){
-	if(!enabled) return 0;
+	if(!enabled) return 0.0;
 	
 	double value = JOYSTICK.getRawAxis(2);
 	if(Math.abs(value) > DEADBAND) return value;
